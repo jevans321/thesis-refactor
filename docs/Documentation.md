@@ -40,7 +40,7 @@ IP Exists?
 select exists(SELECT ip FROM regions WHERE ip = inet '157.237.233.154');
 
 Inner Join Users/Regions table:
-SELECT users.userid, users.subscriptionstatus, regions.region FROM users INNER JOIN regions ON users.ip = regions.ip WHERE ' + req.params.userId + ' = users.userid
+SELECT users.userid, users.subscriptionstatus, regions.region FROM users INNER JOIN regions ON users.ip = regions.ip WHERE 2 = users.userid;
 
 
 Remove Index:

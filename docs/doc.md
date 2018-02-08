@@ -7,3 +7,7 @@ $ knex migrate:latest --env test
 Populate databases with data from seed files
 $ knex seed:run --env development
 $ knex seed:run --env test
+
+Rollback
+$ knex migrate:rollback --env test
+$ knex migrate:rollback --env development

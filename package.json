@@ -14,9 +14,13 @@
     "mocha": "3.5.0"
   },
   "dependencies": {
+    "axios": "^0.17.1",
+    "faker": "^4.1.0",
     "knex": "^0.13.0",
     "koa": "^2.3.0",
+    "koa-bodyparser": "^4.2.0",
     "koa-router": "^7.2.1",
-    "pg": "^7.1.2"
+    "pg": "^7.1.2",
+    "redis": "^2.8.0"
   }
 }

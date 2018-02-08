@@ -76,26 +76,111 @@ describe('routes : index', () => {
 
     }); // End of describe: GET /user/:userid
 
+    // describe('POST /login', () => {
+    //   it('should update Redis cache with region and subscription data', (done) => {
+    //     chai.request(server)
+    //     .post('/login')
+    //     .send({
+    //       'userid': 1,
+    //       'ip': '192.255.101.153',
+    //       'subscriptionstatus': 'Subscribed'
+    //     })
+    //     .end((err, res) => {
+    //       should.not.exist(err);
+    //       res.type.should.equal('application/json');
+    //       res.body.cacheStatus.should.eql('Redis Region and Subscription Updated Successfuly');
+    //       done();
+    //     });
+    //   });
+    // })
 
+    // describe('POST /login', () => {
+    //   it('should add new user to Redis cache', (done) => {
+    //     chai.request(server)
+    //     .post('/login')
+    //     .send({
+    //       'userid': 11000000,
+    //       'ip': '192.255.101.200',
+    //       'subscriptionstatus': 'Expired'
+    //     })
+    //     .end((err, res) => {
+    //       should.not.exist(err);
+    //       res.type.should.equal('application/json');
+    //       res.body.cacheStatus.should.eql('New User data added to Redis cache Successfuly');
+    //       done();
+    //     });
+    //   });
+    // })
+
+    describe('POST /login', () => {
+      it('should update users table with new IP and subscription status', (done) => {
+        chai.request(server)
+        .post('/login')
+        .send({
+          userid: 5,
+          ip: '123.200.14.7',
+          subscriptionstatus: 'Expired'
+        })
+        .end((err, res) => {
+          should.not.exist(err);
+          res.status.should.equal(200);
+          res.type.should.equal('application/json');
+          res.body.status.should.eql('Update Success (IP and Subscription Status)');
+          res.body.data.should.equal(1);
+          done();
+        });
+      });
+    });
+
+    describe('POST /login', () => {
+      it('should return the user that was added', (done) => {
+        chai.request(server)
+        .post('/login')
+        .send({
+          ip: '123.200.14.8',
+          subscriptionstatus: 'None'
+        })
+        .end((err, res) => {
+          should.not.exist(err);
+          res.status.should.equal(201);
+          res.type.should.equal('application/json');
+          res.body.status.should.eql('Insert Success (User ID, IP, and Status)');
+          res.body.data[0].should.include.keys(
+            'userid', 'ip', 'subscriptionstatus'
+          );
+          done();
+        });
+      });
+    });
+
+
+    // describe('POST /login', () => {
+    //   it('should return the user that was added', (done) => {
+    //     chai.request(server)
+    //     .post('/login')
+    //     .send({
+    //       ip: '123.200.14.8',
+    //       subscriptionstatus: 'Subscribed'
+    //     })
+    //     .end((err, res) => {
+    //       // there should be no errors
+    //       should.not.exist(err);
+    //       // there should be a 201 status code
+    //       // (indicating that something was "created")
+    //       res.status.should.equal(201);
+    //       // the response should be JSON
+    //       res.type.should.equal('application/json');
+    //       // the JSON response body should have a
+    //       // key-value pair of {"status": "success"}
+    //       res.body.status.should.eql('success');
+    //       // the JSON response body should have a
+    //       // key-value pair of {"data": 1 movie object}
+    //       res.body.data[0].should.include.keys(
+    //         'userid', 'ip', 'subscriptionstatus'
+    //       );
+    //       done();
+    //     });
+    //   });
+    // });
   
 });
-
-  
-// describe('routes : index', () => {
-
-//   describe('GET /', () => {
-//     it('should return json', (done) => {
-//       chai.request(server)
-//       .get('/')
-//       .end((err, res) => {
-//         should.not.exist(err);
-//         res.status.should.eql(200);
-//         res.type.should.eql('application/json');
-//         res.body.status.should.equal('success');
-//         res.body.message.should.eql('hello, world!');
-//         done();
-//       });
-//     });
-//   });
-
-// });
